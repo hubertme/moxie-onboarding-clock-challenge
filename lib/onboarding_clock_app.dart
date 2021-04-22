@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onboarding_clock_challenge/constants/app_colors.dart';
+import 'package:onboarding_clock_challenge/constants/design_size.dart';
 import 'package:onboarding_clock_challenge/my_home_page.dart';
 
 class OnboardingClockApp extends StatelessWidget {
@@ -24,7 +25,7 @@ class OnboardingClockApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(375, 812), // Refers to iPhone X screen
+        designSize: Size(DesignSize.WIDTH, DesignSize.HEIGHT), // Refers to iPhone X screen
         allowFontScaling: false,
         builder: () => MaterialApp(
           title: 'Onboarding Clock App',

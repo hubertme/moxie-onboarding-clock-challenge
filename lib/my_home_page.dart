@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding_clock_challenge/components/uniform_text.dart';
+import 'package:onboarding_clock_challenge/components/uniform/uniform_text.dart';
+import 'package:onboarding_clock_challenge/constants/app_colors.dart';
+import 'package:onboarding_clock_challenge/screens/main_clock_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -31,9 +33,22 @@ class _MyHomePageState extends State<MyHomePage> {
               fontSize: 14,
               text: 'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            UniformText(
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+              color: AppColors.DARK_GREY,
+              text: '$_counter',
+            ),
+            RaisedButton(
+              child: UniformText(
+                text: 'Push me!',
+                fontSize: 15,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MainClockScreen())
+                );
+              }
             ),
           ],
         ),

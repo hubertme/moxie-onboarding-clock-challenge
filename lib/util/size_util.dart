@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:onboarding_clock_challenge/constants/design_size.dart';
 
 class SizeUtil {
   SizeUtil._() {}
