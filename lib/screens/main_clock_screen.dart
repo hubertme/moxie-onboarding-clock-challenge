@@ -4,6 +4,7 @@ import 'package:onboarding_clock_challenge/components/digital_clock.dart';
 import 'package:onboarding_clock_challenge/components/uniform/uniform_app_bar.dart';
 import 'package:onboarding_clock_challenge/components/uniform/uniform_text.dart';
 import 'package:onboarding_clock_challenge/constants/app_colors.dart';
+import 'package:onboarding_clock_challenge/screens/all_alarm/all_alarm_screen.dart';
 import 'package:onboarding_clock_challenge/util/size_util.dart';
 
 class MainClockScreen extends StatefulWidget {
@@ -52,6 +53,24 @@ class _MainClockScreenState extends State<MainClockScreen> {
     return Scaffold(
       appBar: UniformAppBar(
         title: 'Main Clock Screen',
+        actions: [
+          InkWell(
+            highlightColor: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+              child: Icon(
+                Icons.alarm,
+                color: AppColors.WHITE,
+                size: 30,
+              ),
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AllAlarmScreen())
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         width: double.infinity,

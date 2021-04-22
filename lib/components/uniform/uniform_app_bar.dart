@@ -5,24 +5,25 @@ import 'package:onboarding_clock_challenge/constants/design_size.dart';
 import 'package:onboarding_clock_challenge/util/size_util.dart';
 
 class UniformAppBar extends StatelessWidget implements PreferredSizeWidget {
-  String _title;
+  final String title;
+  final List<Widget> actions;
 
   UniformAppBar({
-    String title,
-  }) {
-    this._title = title;
-  }
+    @required this.title,
+    this.actions,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: UniformText(
         color: AppColors.WHITE,
-        text: this._title,
+        text: this.title,
         fontSize: 18,
         fontWeight: FontWeight.w700,
       ),
       centerTitle: true,
+      actions: this.actions,
     );
   }
 
