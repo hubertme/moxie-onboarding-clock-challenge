@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onboarding_clock_challenge/constants/app_colors.dart';
 import 'package:onboarding_clock_challenge/constants/design_size.dart';
 import 'package:onboarding_clock_challenge/my_home_page.dart';
+import 'package:onboarding_clock_challenge/screens/main_clock_screen.dart';
 
 class OnboardingClockApp extends StatelessWidget {
   MaterialColor _buildMaterialColor(Color color) {
@@ -33,7 +34,7 @@ class OnboardingClockApp extends StatelessWidget {
             primarySwatch: this._buildMaterialColor(AppColors.PURPLE),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: MyHomePage(),
+          home: MainClockScreen(),
         )
     );
   }

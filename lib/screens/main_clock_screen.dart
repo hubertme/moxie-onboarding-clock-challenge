@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
+import 'package:onboarding_clock_challenge/components/digital_clock.dart';
 import 'package:onboarding_clock_challenge/components/uniform/uniform_app_bar.dart';
 import 'package:onboarding_clock_challenge/components/uniform/uniform_text.dart';
+import 'package:onboarding_clock_challenge/constants/app_colors.dart';
 import 'package:onboarding_clock_challenge/util/size_util.dart';
 
 class MainClockScreen extends StatefulWidget {
@@ -23,7 +25,11 @@ class _MainClockScreenState extends State<MainClockScreen> {
   }
 
   Widget _buildDigitalClock() {
-    return Container();
+    return DigitalClock(
+      color: AppColors.DARK_GREY,
+      dateTime: DateTime.now(),
+      isLive: true,
+    );
   }
 
   Widget _buildChangeTriggerButton() {
