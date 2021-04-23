@@ -9,6 +9,7 @@ import 'package:onboarding_clock_challenge/screens/add_alarm/add_alarm_screen.da
 import 'package:onboarding_clock_challenge/screens/all_alarm/all_alarm_viewmodel.dart';
 import 'package:onboarding_clock_challenge/util/formatter_util.dart';
 import 'package:onboarding_clock_challenge/util/size_util.dart';
+import 'package:onboarding_clock_challenge/util/ui_helper.dart';
 import 'package:provider/provider.dart';
 
 class AllAlarmScreen extends StatefulWidget {
@@ -42,6 +43,18 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
     _viewModel.dispose();
   }
 
+  void _handleAlarmDelete(Alarm alarm) {
+    showAlert(
+      context,
+      title: 'Delete Alarm?',
+      body: 'Are you sure you want to delete this alarm?',
+      isDoubleButton: true,
+      callback: () {
+        _viewModel.deleteSingleAlarm(context, alarm);
+      }
+    );
+  }
+
   Widget _buildSingleAlarm(Alarm alarm) {
     return Container(
       // color: AppColors.DARK_GREY,
@@ -65,13 +78,29 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
                   fontWeight: FontWeight.w600,
                   color: alarm.isActive ? AppColors.BLACK : AppColors.LIGHT_GREY,
                 ),
-                Switch(
-                  activeColor: AppColors.PURPLE,
-                  value: alarm.isActive,
-                  onChanged: (val) {
-                    _viewModel.handleAlarmSwitch(context, alarm, val);
-                  },
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Switch(
+                      activeColor: AppColors.PURPLE,
+                      value: alarm.isActive,
+                      onChanged: (val) {
+                        _viewModel.handleAlarmSwitch(context, alarm, val);
+                      },
+                    ),
+                    SizedBox(
+                      width: SizeUtil.scaleWidth(8),
+                    ),
+                    InkWell(
+                      child: Icon(
+                        Icons.remove_circle_outline_rounded,
+                        color: AppColors.RED,
+                      ),
+                      onTap: () => this._handleAlarmDelete(alarm),
+                    )
+                  ],
+                )
               ],
             ),
           ),

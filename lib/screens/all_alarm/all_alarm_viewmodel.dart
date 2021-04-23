@@ -31,4 +31,12 @@ class AllAlarmViewModel {
       Provider.of<AlarmProvider>(context, listen: false).updateAllAlarms(allAlarms);
     }
   }
+
+  void deleteSingleAlarm(BuildContext context, Alarm alarm) {
+    final allAlarms = DBUtil.fetchAllAlarmsFromHive();
+    final filteredAlarms = allAlarms.where((element) => element.id != alarm.id).toList();
+
+    HiveUtil.setValue(HiveUtilKeys.ALARMS, filteredAlarms.map((e) => e.toJson()).toList());
+    Provider.of<AlarmProvider>(context, listen: false).updateAllAlarms(filteredAlarms);
+  }
 }
