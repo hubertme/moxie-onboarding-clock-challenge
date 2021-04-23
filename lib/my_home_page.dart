@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_clock_challenge/components/uniform/uniform_text.dart';
 import 'package:onboarding_clock_challenge/constants/app_colors.dart';
-import 'package:onboarding_clock_challenge/screens/main_clock_screen.dart';
+import 'package:onboarding_clock_challenge/screens/main_clock/main_clock_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);

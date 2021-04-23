@@ -1,4 +1,4 @@
-package com.example.onboarding_clock_challenge
+package wang.hihubert.onboarding_clock_challenge
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:onboarding_clock_challenge/components/uniform/uniform_text.dart';
 import 'package:onboarding_clock_challenge/constants/app_colors.dart';
@@ -31,7 +33,7 @@ class UniformAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize {
     return Size(
       SizeUtil.scaleWidth(DesignSize.WIDTH),
-      SizeUtil.scaleHeight(DesignSize.HEIGHT * 0.064),
+      SizeUtil.scaleHeight(DesignSize.HEIGHT * (Platform.isIOS ? 0.064 : 0.072)),
     );
   }
 }

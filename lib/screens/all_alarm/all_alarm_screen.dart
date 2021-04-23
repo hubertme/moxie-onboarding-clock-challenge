@@ -26,16 +26,15 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
   void initState() {
     super.initState();
 
-    // this.listenToViewModel();
-    _viewModel.fetchAllAlarms(context);
+    this.listenToViewModel();
+
+    Future.delayed(Duration.zero, () {
+      _viewModel.fetchAllAlarms(context);
+    });
   }
 
   void listenToViewModel() {
-    // _viewModel.getAllAlarmsObservable.listen((alarms) {
-    //   setState(() {
-    //     this._allAlarms = alarms;
-    //   });
-    // });
+
   }
 
   @override
@@ -145,6 +144,7 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
   @override
   Widget build(BuildContext context) {
     final allAlarms = Provider.of<AlarmProvider>(context).alarms ?? [];
+    // final allAlarms = [];
 
     return Scaffold(
       appBar: UniformAppBar(

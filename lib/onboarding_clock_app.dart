@@ -4,7 +4,7 @@ import 'package:onboarding_clock_challenge/constants/app_colors.dart';
 import 'package:onboarding_clock_challenge/constants/design_size.dart';
 import 'package:onboarding_clock_challenge/my_home_page.dart';
 import 'package:onboarding_clock_challenge/providers/alarm_provider.dart';
-import 'package:onboarding_clock_challenge/screens/main_clock_screen.dart';
+import 'package:onboarding_clock_challenge/screens/main_clock/main_clock_screen.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingClockApp extends StatelessWidget {
