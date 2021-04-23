@@ -4,10 +4,12 @@ import 'package:onboarding_clock_challenge/components/uniform/uniform_app_bar.da
 import 'package:onboarding_clock_challenge/components/uniform/uniform_text.dart';
 import 'package:onboarding_clock_challenge/constants/app_colors.dart';
 import 'package:onboarding_clock_challenge/models/alarm.dart';
+import 'package:onboarding_clock_challenge/providers/alarm_provider.dart';
 import 'package:onboarding_clock_challenge/screens/add_alarm/add_alarm_screen.dart';
 import 'package:onboarding_clock_challenge/screens/all_alarm/all_alarm_viewmodel.dart';
 import 'package:onboarding_clock_challenge/util/formatter_util.dart';
 import 'package:onboarding_clock_challenge/util/size_util.dart';
+import 'package:provider/provider.dart';
 
 class AllAlarmScreen extends StatefulWidget {
   @override
@@ -15,23 +17,23 @@ class AllAlarmScreen extends StatefulWidget {
 }
 
 class _AllAlarmScreenState extends State<AllAlarmScreen> {
-  List<Alarm> _allAlarms;
+  // List<Alarm> _allAlarms;
   AllAlarmViewModel _viewModel = AllAlarmViewModel();
 
   @override
   void initState() {
     super.initState();
 
-    this.listenToViewModel();
-    _viewModel.fetchAllAlarms();
+    // this.listenToViewModel();
+    _viewModel.fetchAllAlarms(context);
   }
 
   void listenToViewModel() {
-    _viewModel.getAllAlarmsObservable.listen((alarms) {
-      setState(() {
-        this._allAlarms = alarms;
-      });
-    });
+    // _viewModel.getAllAlarmsObservable.listen((alarms) {
+    //   setState(() {
+    //     this._allAlarms = alarms;
+    //   });
+    // });
   }
 
   @override
@@ -73,6 +75,9 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
               ],
             ),
           ),
+          SizedBox(
+            height: SizeUtil.scaleHeight(16),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: SizeUtil.scaleWidth(16)),
             child: Container(
@@ -86,11 +91,11 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
     );
   }
 
-  Widget _buildAllAlarmList() {
+  Widget _buildAllAlarmList(List<Alarm> allAlarms) {
     List<Widget> children = [];
 
-    for (int i=0; i<this._allAlarms.length; i++) {
-      final Alarm alarm = this._allAlarms[i];
+    for (int i=0; i<allAlarms.length; i++) {
+      final Alarm alarm = allAlarms[i];
       children.add(_buildSingleAlarm(alarm));
     }
 
@@ -108,6 +113,8 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final allAlarms = Provider.of<AlarmProvider>(context).alarms ?? [];
+
     return Scaffold(
       appBar: UniformAppBar(
         title: 'Alarm',
@@ -148,7 +155,7 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
               //   fontSize: 20,
               //   fontWeight: FontWeight.w700,
               // ),
-              this._buildAllAlarmList(),
+              this._buildAllAlarmList(allAlarms),
             ],
           ),
         ),

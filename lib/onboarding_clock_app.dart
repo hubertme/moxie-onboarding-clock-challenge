@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onboarding_clock_challenge/constants/app_colors.dart';
 import 'package:onboarding_clock_challenge/constants/design_size.dart';
 import 'package:onboarding_clock_challenge/my_home_page.dart';
+import 'package:onboarding_clock_challenge/providers/alarm_provider.dart';
 import 'package:onboarding_clock_challenge/screens/main_clock_screen.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingClockApp extends StatelessWidget {
   MaterialColor _buildMaterialColor(Color color) {
@@ -25,17 +27,22 @@ class OnboardingClockApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: Size(DesignSize.WIDTH, DesignSize.HEIGHT), // Refers to iPhone X screen
-        allowFontScaling: false,
-        builder: () => MaterialApp(
-          title: 'Onboarding Clock App',
-          theme: ThemeData(
-            primarySwatch: this._buildMaterialColor(AppColors.PURPLE),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: MainClockScreen(),
-        )
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: AlarmProvider()),
+      ],
+      child: ScreenUtilInit(
+          designSize: Size(DesignSize.WIDTH, DesignSize.HEIGHT), // Refers to iPhone X screen
+          allowFontScaling: false,
+          builder: () => MaterialApp(
+            title: 'Onboarding Clock App',
+            theme: ThemeData(
+              primarySwatch: this._buildMaterialColor(AppColors.PURPLE),
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            home: MainClockScreen(),
+          )
+      ),
     );
   }
 }

@@ -94,7 +94,7 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                 fontSize: 15,
               ),
               onPressed: this._timePicked != null ? () {
-                _viewModel.saveAlarmToDB(this._timePicked);
+                _viewModel.saveAlarmToDB(context, this._timePicked);
               } : null,
             ),
           ],

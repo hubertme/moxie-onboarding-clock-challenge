@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_clock_challenge/models/alarm.dart';
+import 'package:onboarding_clock_challenge/providers/alarm_provider.dart';
+import 'package:onboarding_clock_challenge/screens/all_alarm/all_alarm_viewmodel.dart';
 import 'package:onboarding_clock_challenge/util/hive_util.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AddAlarmViewModel {
@@ -11,7 +14,7 @@ class AddAlarmViewModel {
     this._addToDBProcess.close();
   }
 
-  void saveAlarmToDB(TimeOfDay timeOfDay) async {
+  void saveAlarmToDB(BuildContext context, TimeOfDay timeOfDay) async {
     try {
       final alarm = Alarm(hour: timeOfDay.hour, minute: timeOfDay.minute);
 
@@ -23,11 +26,26 @@ class AddAlarmViewModel {
 
       allAlarms.add(alarm.toJson());
       HiveUtil.setValue(HiveUtilKeys.ALARMS, allAlarms);
+      _refreshAllAlarms(context);
 
       _addToDBProcess.add(true);
     } catch (e) {
       print('Error in saveAlarmToDB: $e');
       _addToDBProcess.add(false);
     }
+  }
+
+  void _refreshAllAlarms(BuildContext context) {
+    List<dynamic> hiveData = HiveUtil.getValue(HiveUtilKeys.ALARMS);
+    if (hiveData == null) {
+      hiveData = [];
+    }
+
+    final List<Alarm> allAlarms = hiveData.map((data) {
+      final json = new Map<String, dynamic>.from(data);
+      return Alarm.fromJson(json);
+    }).toList();
+
+    Provider.of<AlarmProvider>(context, listen: false).updateAllAlarms(allAlarms);
   }
 }
