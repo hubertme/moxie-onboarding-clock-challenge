@@ -20,6 +20,7 @@ class AllAlarmScreen extends StatefulWidget {
 class _AllAlarmScreenState extends State<AllAlarmScreen> {
   // List<Alarm> _allAlarms;
   AllAlarmViewModel _viewModel = AllAlarmViewModel();
+  bool _isDeleteMode = false;
 
   @override
   void initState() {
@@ -65,7 +66,7 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: SizeUtil.scaleHeight(32),
+            height: SizeUtil.scaleHeight(16),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: SizeUtil.scaleWidth(24)),
@@ -92,13 +93,14 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
                     SizedBox(
                       width: SizeUtil.scaleWidth(8),
                     ),
-                    InkWell(
+                    this._isDeleteMode ? InkWell(
                       child: Icon(
                         Icons.remove_circle_outline_rounded,
                         color: AppColors.RED,
+                        size: 24,
                       ),
                       onTap: () => this._handleAlarmDelete(alarm),
-                    )
+                    ) : Container(),
                   ],
                 )
               ],
@@ -114,7 +116,7 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
               height: 1,
               width: double.infinity,
             ),
-          )
+          ),
         ],
       ),
     );
@@ -177,13 +179,27 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // SizedBox(
-              //   height: SizeUtil.scaleHeight(24),
+              //   height: SizeUtil.scaleHeight(16),
               // ),
-              // UniformText(
-              //   text: 'All Alarm Screen',
-              //   fontSize: 20,
-              //   fontWeight: FontWeight.w700,
-              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        this._isDeleteMode = !this._isDeleteMode;
+                      });
+                    },
+                    child: UniformText(
+                      text: this._isDeleteMode ? 'View Mode' : 'Delete Mode',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: this._isDeleteMode ? AppColors.PURPLE : AppColors.RED,
+                    ),
+                  ),
+                ],
+              ),
               this._buildAllAlarmList(allAlarms),
             ],
           ),

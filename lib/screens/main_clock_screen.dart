@@ -52,7 +52,7 @@ class _MainClockScreenState extends State<MainClockScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UniformAppBar(
-        title: 'Main Clock Screen',
+        title: 'Current Time',
         actions: [
           InkWell(
             highlightColor: Colors.transparent,
