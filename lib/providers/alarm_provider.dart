@@ -7,7 +7,7 @@ class AlarmProvider with ChangeNotifier {
   updateAllAlarms(List<Alarm> alarms) {
     if (alarms != null) {
       this.alarms = alarms;
-      
+
       notifyListeners();
     }
   }

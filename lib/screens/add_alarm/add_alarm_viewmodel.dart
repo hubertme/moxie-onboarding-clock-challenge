@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onboarding_clock_challenge/models/alarm.dart';
 import 'package:onboarding_clock_challenge/providers/alarm_provider.dart';
 import 'package:onboarding_clock_challenge/screens/all_alarm/all_alarm_viewmodel.dart';
+import 'package:onboarding_clock_challenge/util/db_util.dart';
 import 'package:onboarding_clock_challenge/util/hive_util.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -36,16 +37,7 @@ class AddAlarmViewModel {
   }
 
   void _refreshAllAlarms(BuildContext context) {
-    List<dynamic> hiveData = HiveUtil.getValue(HiveUtilKeys.ALARMS);
-    if (hiveData == null) {
-      hiveData = [];
-    }
-
-    final List<Alarm> allAlarms = hiveData.map((data) {
-      final json = new Map<String, dynamic>.from(data);
-      return Alarm.fromJson(json);
-    }).toList();
-
+    final allAlarms = DBUtil.fetchAllAlarmsFromHive();
     Provider.of<AlarmProvider>(context, listen: false).updateAllAlarms(allAlarms);
   }
 }

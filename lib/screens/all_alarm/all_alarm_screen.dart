@@ -69,7 +69,7 @@ class _AllAlarmScreenState extends State<AllAlarmScreen> {
                   activeColor: AppColors.PURPLE,
                   value: alarm.isActive,
                   onChanged: (val) {
-
+                    _viewModel.handleAlarmSwitch(context, alarm, val);
                   },
                 ),
               ],
