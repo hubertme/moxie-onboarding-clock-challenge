@@ -34,6 +34,22 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
         );
       }
     });
+
+    _viewModel.getFindAlarmObservable.listen((alarms) {
+      if (alarms != null && alarms.isNotEmpty) {
+        showAlert(
+          context,
+          title: 'Duplicate Alarm',
+          body: 'Are you sure you want to add alarm with the same time as existing?',
+          isDoubleButton: true,
+          callback: () {
+            _viewModel.saveAlarmToDB(context, this._timePicked);
+          }
+        );
+      } else {
+        _viewModel.saveAlarmToDB(context, this._timePicked);
+      }
+    });
   }
 
   @override
@@ -60,6 +76,10 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
         this._timePicked = timePicked;
       });
     }
+  }
+
+  void _handleSaveAlarm() {
+    _viewModel.findAlarm(this._timePicked);
   }
 
   @override
@@ -93,9 +113,7 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                 text: 'Save',
                 fontSize: 15,
               ),
-              onPressed: this._timePicked != null ? () {
-                _viewModel.saveAlarmToDB(context, this._timePicked);
-              } : null,
+              onPressed: this._timePicked != null ? this._handleSaveAlarm : null,
             ),
           ],
         ),

@@ -11,8 +11,12 @@ class AddAlarmViewModel {
   BehaviorSubject<bool> _addToDBProcess = BehaviorSubject();
   Stream<bool> get addToDBProcessObservable => _addToDBProcess.stream;
 
+  BehaviorSubject<List<Alarm>> _findAlarmObservable = BehaviorSubject();
+  Stream<List<Alarm>> get getFindAlarmObservable => _findAlarmObservable.stream;
+
   void dispose() {
     this._addToDBProcess.close();
+    this._findAlarmObservable.close();
   }
 
   void saveAlarmToDB(BuildContext context, TimeOfDay timeOfDay) async {
@@ -20,7 +24,6 @@ class AddAlarmViewModel {
       final alarm = Alarm(hour: timeOfDay.hour, minute: timeOfDay.minute);
 
       List<dynamic> allAlarms = HiveUtil.getValue(HiveUtilKeys.ALARMS);
-      print('All alarms: $allAlarms');
       if (allAlarms == null) {
         allAlarms = [];
       }
@@ -39,5 +42,12 @@ class AddAlarmViewModel {
   void _refreshAllAlarms(BuildContext context) {
     final allAlarms = DBUtil.fetchAllAlarmsFromHive();
     Provider.of<AlarmProvider>(context, listen: false).updateAllAlarms(allAlarms);
+  }
+
+  void findAlarm(TimeOfDay timeOfDay) {
+    final allAlarms = DBUtil.fetchAllAlarmsFromHive();
+    final filteredAlarms = allAlarms.where((element) => element.hour == timeOfDay.hour && element.minute == timeOfDay.minute).toList();
+
+    _findAlarmObservable.add(filteredAlarms);
   }
 }
